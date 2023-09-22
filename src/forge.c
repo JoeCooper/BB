@@ -78,7 +78,7 @@ int main() {
         }
     }
 
-    SortableFragment sortable_fragments[table->count];
+    SortableFragment *sortable_fragments = (SortableFragment *) malloc(table->count * sizeof(SortableFragment));
 
     {
         size_t j = 0;
@@ -100,7 +100,7 @@ int main() {
 
     qsort(sortable_fragments, table->count, sizeof(SortableFragment), compare_fragment);
     
-    Fragment fragments[table->count];
+    Fragment *fragments = (Fragment *) malloc(table->count * sizeof(Fragment));
     size_t fragment_count = 0;
 
     for(int i = 0; i < table->count; i++)
@@ -126,7 +126,7 @@ int main() {
 
     Model m;
 
-    m.hash = hash_fragments((Fragment *)&fragments[0], fragment_count);
+    m.hash = hash_fragments(fragments, fragment_count);
     m.fragment_count = fragment_count;
     m.fragments = fragments;
 
